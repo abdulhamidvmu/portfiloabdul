@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Your Name | Portfolio</title>
+  <meta name="description" content="Portfolio of Your Name - student developer">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <style>
+:root {
+  --bg: #f7f8fa;
+  --surface: #ffffff;
+  --text: #16202b;
+  --muted: #5b6776;
+  --line: #e2e6ec;
+  --accent: #0f766e;
+  --accent-text: #ffffff;
+}
+[data-theme="dark"] {
+  --bg: #0e1620;
+  --surface: #16212e;
+  --text: #e8edf3;
+  --muted: #9aa8b8;
+  --line: #263547;
+  --accent: #2dd4bf;
+  --accent-text: #0e1620;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; scroll-padding-top: 70px; }
+body {
+  font-family: "Manrope", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.65;
+  transition: background .25s, color .25s;
+}
+a { color: var(--accent); }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+/* Header */
+.site-header {
+  position: sticky; top: 0; z-index: 10;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 20px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+}
+.logo { font-weight: 800; font-size: 1.3rem; text-decoration: none; color: var(--text); }
+nav { display: none; position: absolute; top: 100%; left: 0; right: 0;
+  flex-direction: column; background: var(--surface); border-bottom: 1px solid var(--line); }
+nav.open { display: flex; }
+nav a { padding: 14px 20px; text-decoration: none; color: var(--text); font-weight: 500; border-top: 1px solid var(--line); }
+nav a:hover { color: var(--accent); }
+.menu-btn, .tools button {
+  background: none; border: 1px solid var(--line); color: var(--text);
+  border-radius: 8px; padding: 6px 10px; font-size: 1rem; cursor: pointer;
+}
+.tools { display: flex; gap: 8px; }
+.menu-btn { order: 3; }
+
+/* Layout */
+main { max-width: 960px; margin: 0 auto; padding: 0 20px; }
+section { padding: 56px 0 8px; }
+h2 { font-size: 1.6rem; margin-bottom: 24px; }
+h3 { font-size: 1.05rem; }
+
+/* Hero */
+.hero { padding: 72px 0 40px; }
+.hello { color: var(--accent); font-weight: 700; }
+h1 { font-size: clamp(2.2rem, 8vw, 4rem); line-height: 1.1; margin: 6px 0 12px; font-weight: 800; }
+.role { font-size: 1.15rem; color: var(--muted); max-width: 32ch; }
+.cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+.btn {
+  padding: 11px 22px; border-radius: 10px; text-decoration: none; font-weight: 700;
+  border: 2px solid var(--accent); color: var(--accent);
+}
+.btn.primary { background: var(--accent); color: var(--accent-text); }
+
+/* About */
+.about-grid { display: grid; gap: 24px; }
+.facts { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 8px 20px; }
+.facts div { display: flex; flex-direction: column; padding: 12px 0; border-bottom: 1px solid var(--line); }
+.facts div:last-child { border-bottom: 0; }
+dt { font-size: .8rem; color: var(--muted); }
+dd { font-weight: 700; }
+
+/* Timeline */
+.timeline { list-style: none; border-left: 2px solid var(--line); padding-left: 20px; }
+.timeline li { position: relative; padding-bottom: 26px; }
+.timeline li::before {
+  content: ""; position: absolute; left: -27px; top: 7px;
+  width: 12px; height: 12px; border-radius: 50%; background: var(--accent);
+}
+.year { font-size: .85rem; color: var(--accent); font-weight: 700; }
+.timeline p { color: var(--muted); }
+
+/* Skills */
+.skills { display: grid; gap: 18px; }
+.skill-group { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 18px 20px; }
+.skill-group h3 { margin-bottom: 12px; }
+.skill { margin-bottom: 12px; }
+.skill-top { display: flex; justify-content: space-between; font-size: .9rem; font-weight: 500; }
+.bar { height: 8px; background: var(--line); border-radius: 99px; overflow: hidden; margin-top: 4px; }
+.bar span { display: block; height: 100%; width: 0; background: var(--accent); border-radius: 99px; transition: width 1s ease; }
+
+/* Works */
+.works { display: grid; gap: 18px; }
+.work { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 20px; }
+.work p { color: var(--muted); margin: 8px 0 12px; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+.tags span { font-size: .78rem; padding: 3px 10px; border-radius: 99px; border: 1px solid var(--line); }
+.work a { font-weight: 700; text-decoration: none; }
+
+/* Contact */
+.contact-list { list-style: none; display: grid; gap: 8px; }
+
+footer { text-align: center; color: var(--muted); padding: 48px 20px 32px; font-size: .9rem; }
+
+/* Tablet and up */
+@media (min-width: 720px) {
+  .menu-btn { display: none; }
+  nav { display: flex; position: static; flex-direction: row; border: 0; background: none; gap: 4px; }
+  nav a { border: 0; padding: 8px 12px; }
+  .about-grid { grid-template-columns: 1.3fr 1fr; align-items: start; }
+  .skills, .works { grid-template-columns: repeat(2, 1fr); }
+  section { padding-top: 80px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { transition: none !important; }
+}
+
+/* Print / Save as PDF */
+@media print {
+  .site-header, .cta, footer { display: none; }
+  body { background: #fff; color: #000; }
+  :root, [data-theme="dark"] { --bg:#fff; --surface:#fff; --text:#000; --muted:#333; --line:#bbb; --accent:#0f766e; }
+  section { padding: 16px 0 0; break-inside: avoid; }
+  .bar span { width: var(--level) !important; }
+  a { color: #000; text-decoration: none; }
+}
+
+</style>
+</head>
+<body>
+
+  <header class="site-header">
+    <a href="#home" class="logo">YN.</a>
+    <button class="menu-btn" id="menuBtn" aria-label="Toggle menu" aria-expanded="false">☰</button>
+    <nav id="nav">
+      <a href="#about">About</a>
+      <a href="#education">Education</a>
+      <a href="#skills">Skills</a>
+      <a href="#works">Works</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="tools">
+      <button id="themeBtn" aria-label="Toggle dark mode">🌓</button>
+      <button id="printBtn" aria-label="Print or save as PDF">🖨</button>
+    </div>
+  </header>
+
+  <main>
+    <!-- HOME -->
+    <section id="home" class="hero">
+      <p class="hello">Hello, I'm</p>
+      <h1>ABDUL HAMID</h1>
+      <p class="role">B.Tech Student &amp; Aspiring Web Developer</p>
+      <div class="cta">
+        <a class="btn primary" href="#works">View my work</a>
+        <a class="btn" href="#contact">Contact me</a>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about">
+      <h2>About me</h2>
+      <div class="about-grid">
+        <p>I am a passionate student who enjoys building clean, useful websites and solving problems with code. I am looking for internships where I can learn and contribute.</p>
+        <dl class="facts">
+          <div><dt>Name</dt><dd>ABDUL HAMID</dd></div>
+          <div><dt>Roll No</dt><dd>26HEU06R338</dd></div>
+          <div><dt>College</dt><dd>MALLA REEDY DEMEED TO BE UNIVERSITY</dd></div>
+          <div><dt>Address</dt><dd> Telangana, India</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- EDUCATION -->
+    <section id="education">
+      <h2>Education</h2>
+      <ol class="timeline">
+        <li>
+          <span class="year">2022 – 2026</span>
+          <h3>B.Tech in Computer Science</h3>
+          <p>Your College Name · CGPA 8.5</p>
+        </li>
+        <li>
+          <span class="year">2020 – 2022</span>
+          <h3>Intermediate (MPC)</h3>
+          <p>Your Junior College · 95%</p>
+        </li>
+        <li>
+          <span class="year">2020</span>
+          <h3>SSC (Class 10)</h3>
+          <p>Your School · GPA 9.5</p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills">
+      <h2>Skills</h2>
+      <div id="skillList" class="skills"></div>
+    </section>
+
+    <!-- WORKS -->
+    <section id="works">
+      <h2>Works</h2>
+      <div id="workList" class="works"></div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <h2>Contact</h2>
+      <ul class="contact-list">
+        <li>Email: <a href="mailto:you@example.com">you@example.com</a></li>
+        <li>Phone: <a href="tel:+910000000000">+91 00000 00000</a></li>
+        <li>GitHub: <a href="https://github.com/yourname">github.com/yourname</a></li>
+        <li>LinkedIn: <a href="https://linkedin.com/in/yourname">linkedin.com/in/yourname</a></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <p>© <span id="year"></span> Your Full Name. All rights reserved.</p>
+  </footer>
+
+  <script>
+// ====== EDIT YOUR DETAILS HERE ======
+const skills = [
+  { group: "Programming", items: [["HTML & CSS", 85], ["JavaScript", 70], ["Python", 75], ["Java", 65]] },
+  { group: "Tools", items: [["Git & GitHub", 70], ["VS Code", 90], ["MySQL", 60]] }
+];
+
+const works = [
+  {
+    title: "Portfolio Website",
+    text: "A responsive personal website built with HTML, CSS and JavaScript.",
+    tags: ["HTML", "CSS", "JavaScript"],
+    link: "#"
+  },
+  {
+    title: "Student Management System",
+    text: "Add, search and update student records using a simple database.",
+    tags: ["Python", "MySQL"],
+    link: "#"
+  },
+  {
+    title: "Weather App",
+    text: "Shows live weather for any city using a public API.",
+    tags: ["JavaScript", "API"],
+    link: "#"
+  }
+];
+// ====================================
+
+// Skills
+const skillList = document.getElementById("skillList");
+skillList.innerHTML = skills.map(g => `
+  <div class="skill-group">
+    <h3>${g.group}</h3>
+    ${g.items.map(([name, level]) => `
+      <div class="skill">
+        <div class="skill-top"><span>${name}</span><span>${level}%</span></div>
+        <div class="bar"><span data-level="${level}" style="--level:${level}%"></span></div>
+      </div>`).join("")}
+  </div>`).join("");
+
+// Works
+document.getElementById("workList").innerHTML = works.map(w => `
+  <article class="work">
+    <h3>${w.title}</h3>
+    <p>${w.text}</p>
+    <div class="tags">${w.tags.map(t => `<span>${t}</span>`).join("")}</div>
+    <a href="${w.link}">View project</a>
+  </article>`).join("");
+
+// Animate skill bars when they scroll into view
+const bars = document.querySelectorAll(".bar span");
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.style.width = e.target.dataset.level + "%";
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.4 });
+bars.forEach(b => observer.observe(b));
+
+// Mobile menu
+const menuBtn = document.getElementById("menuBtn");
+const nav = document.getElementById("nav");
+menuBtn.addEventListener("click", () => {
+  const open = nav.classList.toggle("open");
+  menuBtn.setAttribute("aria-expanded", open);
+});
+nav.querySelectorAll("a").forEach(a => a.addEventListener("click", () => {
+  nav.classList.remove("open");
+  menuBtn.setAttribute("aria-expanded", false);
+}));
+
+// Dark mode (remembers choice when available)
+const root = document.documentElement;
+try {
+  const saved = localStorage.getItem("theme");
+  if (saved) root.dataset.theme = saved;
+  else if (matchMedia("(prefers-color-scheme: dark)").matches) root.dataset.theme = "dark";
+} catch (e) {}
+document.getElementById("themeBtn").addEventListener("click", () => {
+  const next = root.dataset.theme === "dark" ? "light" : "dark";
+  root.dataset.theme = next;
+  try { localStorage.setItem("theme", next); } catch (e) {}
+});
+
+// Print / save as PDF
+document.getElementById("printBtn").addEventListener("click", () => window.print());
+
+// Footer year
+document.getElementById("year").textContent = new Date().getFullYear();
+
+</script>
+</body>
+</html>
